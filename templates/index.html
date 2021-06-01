@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Water quality Index Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="stylesss.css">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}"> -->
+</head>
+
+<body>
+
+  <div id="page">
+    <!--begin page -->
+
+    <div class="header">
+      <h1>WATER QUALITY <span>INDEX ESTIMATOR</span></h1>
+      <h3></h3>
+    </div>
+
+    <!-- <div class="container" data-bind= "visible: !initialised()">
+      Loading, please wait...
+    </div> -->
+
+    <div class="container" >
+      <!--begin container -->
+
+      <div id="content">
+
+        <div class="box-full left">
+          <h2>Random Forest ML Model</h2>
+          
+          <form class="text-center"  method="POST" action="/predict">
+            <table width="100%">
+              <tbody>
+                <tr>
+                    <th>Fill sensor values to predict water quaity index</th>
+                  </tr>
+                  <tr> 
+                    <td>                        
+                      <div class="form-field "  style="padding-top: 20px;"><i class="fas fa-tint" style="color:#5bc0de"></i> <span>{{ form.Dissolved_Oxygen.label }} (mg/L)</span> {{ form.Dissolved_Oxygen }}</div>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>
+                      <div class="form-field ""><i class="fas fa-snowflake" style="color: teal"></i> <span>{{ form.pH.label }}</span> {{ form.pH }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-bolt" style="color:orchid"></i> <span>{{ form.Total_Dissolved_Solids.label }} (ppm)</span> {{ form.Total_Dissolved_Solids }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-thermometer-half" style="color:red"></i> <span>{{ form.Temperature.label }} (°C)</span> {{ form.Temperature }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-bookmark" aria-hidden="true" style="color:maroon"></i> <span>{{ form.Turbidity.label }} (ntu)</span> {{ form.Turbidity }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-cog" style="color: tomato"></i> <span>{{ form.Conductivity.label }} (μS/cm)</span> {{ form.Conductivity }}</div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <br>
+            <input id="submit" style="margin-bottom: 10px;" name="submit" type="submit" onclick="startSpinner()" value="Predict">
+            
+            <br>
+          </form>
+        </div>
+
+        <div class="box-full left">
+            <h2>Water Quality Index Prediction</h2>
+            
+                <div class="d-flex justify-content-center">
+                    <div id="loader" style="color:black; display: none;" class="spinner-border"></div>
+                  </div>
+                  <div class="output-container">
+                    <center>
+                      <div id="output">
+                        <h3 id="a"><span style="color: mediumvioletred; background-color: lightyellow;">Predicted Water Quality Index: <span style="background-color: yellow; color:black">{{ form.abc }}</span></span></h3>
+                        <!-- <h3 id="b"></h3> -->
+                        <h3 id="b"><span style="color: mediumvioletred; background-color: lightyellow;">The given water sample is <span style="background-color: yellow; color:black">{{ form.perc }} %</span> conducive for the rearing of Shrimps.</span></h3>
+                      </div>
+                    </center>
+                  </div>
+                
+                </div>
+              
+
+    </div>
+
+</div>
+<!--end container -->
+
+</div>
+
+
+<script>
+
+    window.onload = function exampleFunction() { 
+      
+      // var output = document.getElementById("output");
+      // output.style.display = "none"
+    } 
+    
+        function startSpinner() {
+          var x = document.getElementById("loader");
+          x.style.display = "block";
+          var output = document.getElementById("output");
+          output.style.display = "none"
+          setTimeout(function () {
+            var y = document.getElementById("output");
+            var x = document.getElementById("loader");
+            var a = document.getElementById("a");
+            var b = document.getElementById("b");
+            x.style.display = "none";
+            y.style.display = "block"
+            a.style.display = "block"
+            b.style.display = "block"
+          }, 3000);
+    
+        }
+      </script>
+ 
+</body>
+
+</html>
