@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-  <title>Water Quality Index Prediction</title>
+  <title>Water quality Index Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,103 +13,136 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="stylesss.css"> -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
 </head>
 
-<body style="background-color: #214269">
-  <center>
-    <div style="app-header">
-      <h2>Water Quality Index Estimator</h2>
-      <p>Estimation of Water Quality Index.</p>
-      <p>Fill out the form to see an estimated WQI.</p>
+<body>
+
+  <div id="page">
+    <!--begin page -->
+
+    <div class="header">
+      <h1>WATER QUALITY <span>INDEX ESTIMATOR</span></h1>
+      <h3></h3>
     </div>
-  </center>
-  <form class="text-center" style="border-style: solid; color: #757575; margin-bottom:10px" method="POST" action="/predict">
-    <table width="100%">
-      <tbody>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.Dissolved_Oxygen.label }} {{ form.Dissolved_Oxygen }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.pH.label }} {{ form.pH }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.Total_Dissolved_Solids.label }} {{ form.Total_Dissolved_Solids }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.Temperature.label }} {{ form.Temperature }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.Turbidity.label }} {{ form.Turbidity }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="form-field ">{{ form.Conductivity.label }} {{ form.Conductivity }}</div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-    <input id="submit" style="margin-bottom: 10px;" name="submit" type="submit" onclick="startSpinner()" value="Predict">
+
+    <!-- <div class="container" data-bind= "visible: !initialised()">
+      Loading, please wait...
+    </div> -->
+
+    <div class="container" >
+      <!--begin container -->
+
+      <div id="content">
+
+        <div class="box-full left">
+          <h2>Random Forest ML Model</h2>
+          
+          <form class="text-center"  method="POST" action="/predict">
+            <table width="100%">
+              <tbody>
+                <tr>
+                    <th>Enter sensor values to predict water quality index</th>
+                  </tr>
+                  <tr> 
+                    <td>                        
+                      <div class="form-field "  style="padding-top: 30px;"><i class="fas fa-tint" style="color:#5bc0de"></i> <span>{{ form.Dissolved_Oxygen.label }} (mg/L) :</span> {{ form.Dissolved_Oxygen(size=20) }}</div>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>
+                      <div class="form-field ""><i class="fas fa-snowflake" style="color: teal"></i> <span>{{ form.pH.label }} :</span> {{ form.pH }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-bolt" style="color:orchid"></i> <span>{{ form.Total_Dissolved_Solids.label }} (ppm) :</span> {{ form.Total_Dissolved_Solids }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-thermometer-half" style="color:red"></i> <span>{{ form.Temperature.label }} (°C) :</span> {{ form.Temperature }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-bookmark" aria-hidden="true" style="color:maroon"></i> <span>{{ form.Turbidity.label }} (ntu) :</span> {{ form.Turbidity }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-field "><i class="fas fa-cog" style="color: tomato"></i> <span>{{ form.Conductivity.label }} (μS/cm) :</span> <span>{{ form.Conductivity }}</span></div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <br>
+            <input id="submit" style="margin-bottom: 10px;" name="submit" type="submit" onclick="startSpinner()" value="Predict">
+            
+            <br>
+          </form>
+        </div>
+
+        <div class="box-full left">
+            <h2>Water Quality Index Prediction</h2>
+            
+                <div class="d-flex justify-content-center">
+                    <div id="loader" style="color:black; display: none;" class="spinner-border"></div>
+                  </div>
+                  <div class="output-container">
+                    <center>
+                      <div id="output">
+                        <div class=form-field-2 id="a"><span style="color: mediumvioletred;"><span style="background-color: lightyellow;">⇒ Predicted Water Quality Index : </span><span style="background-color: yellow; color:black">{{ form.abc }}</span></span></div>
+                        <!-- <h3 id="b"></h3> -->
+                        <div class=form-field-3 id="b"><span style="color: mediumvioletred;"><span style="background-color: lightyellow;">⇒ The given water sample is </span><span style="background-color: yellow; color:black">{{ form.perc }} %</span><span style="background-color: lightyellow"> conducive for the rearing of Shrimps.</span></span></div>
+                      </div>
+                    </center>
+                  </div>
+                
+                </div>
+              
+
+    </div>
+
+</div>
+<!--end container -->
+
+</div>
+
+
+<script>
+
+    window.onload = function exampleFunction() { 
+
+      // var output = document.getElementById("output");
+      // output.style.display = "none"
+    } 
     
-    <br>
-  </form>
-
-  <div class="d-flex justify-content-center">
-    <div id="loader" style="color:black; display: none;" class="spinner-border"></div>
-  </div>
-  <div class="output-container">
-    <center>
-      <div id="output">
-        <h5 id="a">Predicted Water Quality Index </h5>
-        <h3 id="b">{{ form.abc }}</h3>
-        <h3 id="b">Percent{{ form.perc }}%</h3>
-      </div>
-    </center>
-  </div>
-
-  <center>
-    <img src="static/diagram.png" alt="arch-diagram">
-  </center>
-
-  <script>
-
-window.onload = function exampleFunction() { 
-  
-  // var output = document.getElementById("output");
-  // output.style.display = "none"
-} 
-
-    function startSpinner() {
-      var x = document.getElementById("loader");
-      x.style.display = "block";
-      var output = document.getElementById("output");
-      output.style.display = "none"
-      setTimeout(function () {
-        var y = document.getElementById("output");
-        var x = document.getElementById("loader");
-        var a = document.getElementById("a");
-        var b = document.getElementById("b");
-        x.style.display = "none";
-        y.style.display = "block"
-        a.style.display = "block"
-        b.style.display = "block"
-      }, 3000);
-
-    }
-  </script>
-
+        function startSpinner() {
+          var x = document.getElementById("loader");
+          x.style.display = "block";
+          var output = document.getElementById("output");
+          output.style.display = "none"
+          setTimeout(function () {
+            var y = document.getElementById("output");
+            var x = document.getElementById("loader");
+            var a = document.getElementById("a");
+            var b = document.getElementById("b");
+            x.style.display = "none";
+            y.style.display = "block"
+            a.style.display = "block"
+            b.style.display = "block"
+          }, 3000);
+    
+        }
+      </script>
+ 
 </body>
 
 </html>

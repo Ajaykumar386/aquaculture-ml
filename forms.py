@@ -7,7 +7,7 @@ from wtforms.validators import Length
 from wtforms.validators import ValidationError
 
 class PredictForm(FlaskForm):
-   Dissolved_Oxygen = StringField('DO')
+   Dissolved_Oxygen = StringField('Dissolved Oxygen')
    pH = StringField('pH')
    Total_Dissolved_Solids = StringField('TDS')
    Temperature = StringField('Temperature')
