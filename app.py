@@ -13,6 +13,9 @@ app = Flask(__name__, instance_relative_config=False)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key = 'development key' 
 
+if __name__ == "__main__":
+  app.run(debug=True)
+
 @app.route('/', methods=('GET', 'POST'))
 
 def startApp():
