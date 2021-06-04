@@ -28,7 +28,7 @@ def predict():
     form = PredictForm()
     if form.submit():
         # NOTE: generate iam_token and retrieve ml_instance_id based on provided documentation
-        API_KEY = "iLXV738U436OPtjd9-J78fcxs8KuatpnmoZvQ570us74"
+        API_KEY = "xxJAgM2zK2xgJvv-Gp2b6CFL4RoNsfFs-mcfOD63DhmO"
         token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={
                                        "apikey": API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
         mltoken = token_response.json()["access_token"]
@@ -50,7 +50,7 @@ def predict():
         payload_scoring = {"input_data": [{"fields": [
             "DO", "PH", "TDS", "Temperature", "Turbidity", "Conductivity"], "values": userInput}]}
         print(payload_scoring)
-        response_scoring = requests.post('https://jp-tok.ml.cloud.ibm.com/ml/v4/deployments/b9b18f62-5a51-426d-a15d-61743b8e3760/predictions?version=2021-05-29',
+        response_scoring = requests.post('https://eu-gb.ml.cloud.ibm.com/ml/v4/deployments/468a8254-8251-40de-9c60-3411f490afd0/predictions?version=2021-06-04',
                                          json=payload_scoring, headers={'Authorization': 'Bearer ' + mltoken})
         output = json.loads(response_scoring.text)
         print(output)
